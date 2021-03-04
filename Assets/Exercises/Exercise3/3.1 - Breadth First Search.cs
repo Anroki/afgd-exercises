@@ -22,7 +22,30 @@ namespace AfGD.Execise3
         //
         public static void Execute(Graph graph, Node start, Node goal, Dictionary<Node, Node> cameFrom)
         {
-            throw new NotImplementedException("Implement BreadthFirstSearch search algorithm here.");
+            Queue<Node> frontier = new Queue<Node>();
+            List<Node> neighbours = new List<Node>();
+            List<Node> explored = new List<Node>();
+
+            frontier.Enqueue(start);
+
+            while (frontier.Count > 0)
+            {
+                Node current = frontier.Dequeue();
+                if (goal == current) break;
+
+                explored.Add(current);
+                graph.GetNeighbours(current, neighbours);
+
+                foreach (Node next in neighbours)
+                {
+                    if (!frontier.Contains(next) && !explored.Contains(next))
+                    {
+                        frontier.Enqueue(next);
+                        explored.Add(next);
+                        cameFrom.Add(next, current);
+                    }
+                }
+            }
         }
     }
 }

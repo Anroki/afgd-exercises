@@ -134,5 +134,10 @@ namespace AfGD.Assignment1
             if (m_Graph != null)
                 m_Graph.Clear();
         }
+
+        public List<Vector3> GetPath()
+        {
+            return m_Path;
+        }
     }
 }

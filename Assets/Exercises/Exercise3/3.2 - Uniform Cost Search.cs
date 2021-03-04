@@ -29,9 +29,33 @@ namespace AfGD.Execise3
         //      Subsequently entries can be popped from the PriorityQueue as follows:
         //          var node = priorityQueue.Dequeue(); // This will take the next node of the queue with the *lowest* priority value
         //
-        public static void Execute(Graph graph, Node startPoint, Node endPoint, Dictionary<Node, Node> cameFrom)
+        public static void Execute(Graph graph, Node start, Node goal, Dictionary<Node, Node> cameFrom)
         {
-            throw new NotImplementedException("Implement UniformCostSearch search algorithm here.");
+            PriorityQueue<Node> frontier = new PriorityQueue<Node>();
+            List<Node> neighbours = new List<Node>();
+            Dictionary<Node, float> exploredCost = new Dictionary<Node, float>();
+
+            frontier.Enqueue(start, 0);
+            exploredCost[start] = 0;
+            cameFrom.Add(start, null);
+
+            while (frontier.Count > 0)
+            {
+                Node current = frontier.Dequeue();
+                if (current == goal) break;
+                graph.GetNeighbours(current, neighbours);
+
+                foreach (Node next in neighbours)
+                {
+                    float cost = exploredCost[current] + graph.GetCost(current, next);
+                    if (!exploredCost.ContainsKey(next) || cost < exploredCost[next])
+                    {
+                        exploredCost[next] = cost;
+                        frontier.Enqueue(next, cost);
+                        cameFrom[next] = current;
+                    }
+                }
+            }
         }
     }
 }
