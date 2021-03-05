@@ -22,10 +22,10 @@ public class MoveAlongPath : MonoBehaviour
         {
             controlPoints.Add(transform.position);
         }
-        curveSegments.Add(new CurveSegment(controlPoints[1], controlPoints[2], controlPoints[3], controlPoints[4], CurveType.CATMULLROM));
-        curveSegments.Add(new CurveSegment(controlPoints[2], controlPoints[3], controlPoints[4], controlPoints[1], CurveType.CATMULLROM));
-        curveSegments.Add(new CurveSegment(controlPoints[3], controlPoints[4], controlPoints[1], controlPoints[2], CurveType.CATMULLROM));
-        curveSegments.Add(new CurveSegment(controlPoints[4], controlPoints[1], controlPoints[2], controlPoints[3], CurveType.CATMULLROM));
+        curveSegments.Add(new CurveSegment(controlPoints[1], controlPoints[2], controlPoints[3], controlPoints[4], CurveType.HERMITE));
+        curveSegments.Add(new CurveSegment(controlPoints[2], controlPoints[3], controlPoints[4], controlPoints[1], CurveType.HERMITE));
+        curveSegments.Add(new CurveSegment(controlPoints[3], controlPoints[4], controlPoints[1], controlPoints[2], CurveType.HERMITE));
+        curveSegments.Add(new CurveSegment(controlPoints[4], controlPoints[1], controlPoints[2], controlPoints[3], CurveType.HERMITE));
     }
 
 

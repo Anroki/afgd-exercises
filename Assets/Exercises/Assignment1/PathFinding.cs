@@ -106,7 +106,11 @@ namespace AfGD.Assignment1
             if (m_Path != null && m_Path.Count > 1)
             {
                 for (int i = 1; i < m_Path.Count; i++)
-                    Debug.DrawLine(m_Path[i - 1], m_Path[i], Color.yellow);
+                {
+                    Debug.DrawLine(m_Path[i - 1], m_Path[i], Color.black);
+                    Handles.color = Color.black;
+                    Handles.DrawSolidDisc(m_Path[i], Vector3.up, 0.15f);
+                }
             }
 
             var handleColor = Handles.color;

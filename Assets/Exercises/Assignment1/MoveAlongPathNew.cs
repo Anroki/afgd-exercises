@@ -21,35 +21,31 @@ namespace AfGD.Assignment1
         private float t;
         private int curveIndex = 0;
         private DebugCurve debugCurve;
+        private bool hasPath;
 
         void Start()
         {
             Init();
-            CreateCurveSegments();
         }
         void Update()
         {
-            MoveObjectAlongPath();
+            if (hasPath)
+                MoveObjectAlongPath();
+            else
+                GetPath();
         }
 
         void Init()
         {
+            hasPath = false;
             time = 0;
             t = 0;
 
-            controlPoints = controlPointParent.GetComponent<PathFinding>().GetPath();
             curveSegments = new List<CurveSegment>();
         }
 
         void CreateCurveSegments()
         {
-            Transform[] cpTransform = controlPointParent.GetComponentsInChildren<Transform>().Where(t => t != controlPointParent.transform).ToArray();
-
-            foreach (Transform transform in cpTransform)
-            {
-                controlPoints.Add(transform.position);
-            }
-
             this.transform.position = controlPoints[1];
 
             int cpCount = controlPoints.Count;
@@ -60,7 +56,7 @@ namespace AfGD.Assignment1
                 int b = i + 1;
                 int c = i + 2;
                 int d = i + 3;
-                curveSegments.Add(new CurveSegment(controlPoints[a], controlPoints[b], controlPoints[c], controlPoints[d], CurveType.CATMULLROM));
+                curveSegments.Add(new CurveSegment(controlPoints[a], controlPoints[b], controlPoints[c], controlPoints[d], CurveType.HERMITE));
             }
         }
 
@@ -76,9 +72,14 @@ namespace AfGD.Assignment1
             transform.position = targetPos;
         }
 
-        void triggerEffect()
+        void GetPath()
         {
-            Debug.Log("Trigger effect!");
+            controlPoints = controlPointParent.GetComponent<PathFinding>().GetPath();
+            hasPath = controlPoints.Count > 0;
+            if (hasPath)
+                CreateCurveSegments();
+            else
+                controlPointParent.GetComponent<PathFinding>().Run();
         }
     }
 }

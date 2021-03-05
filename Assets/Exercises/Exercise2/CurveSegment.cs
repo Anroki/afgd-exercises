@@ -104,10 +104,24 @@ namespace AfGD
             //     [ cv1.x cv2.y cv3.z cv4.y]  // row 1
             //     [ cv1.x cv2.y cv3.z cv4.z]  // row 2
             //     [   unnused    unnused   ]  // row 3
-            Vector4 B1 = new Vector4(cv1.x, cv1.y, cv1.z, 1);
-            Vector4 B2 = new Vector4(cv2.x, cv2.y, cv2.z, 1);
-            Vector4 B3 = new Vector4(cv3.x, cv3.y, cv3.z, 1);
-            Vector4 B4 = new Vector4(cv4.x, cv4.y, cv4.z, 1);
+            Vector4 B1;
+            Vector4 B2;
+            Vector4 B3;
+            Vector4 B4;
+            if (type == CurveType.HERMITE)
+            {
+                B1 = new Vector4(cv1.x, cv1.y, cv1.z, 1);
+                B2 = EvaluateDv(0);
+                B3 = EvaluateDv(1);
+                B4 = new Vector4(cv2.x, cv2.y, cv2.z, 1);
+            }
+            else
+            {
+                B1 = new Vector4(cv1.x, cv1.y, cv1.z, 1);
+                B2 = new Vector4(cv2.x, cv2.y, cv2.z, 1);
+                B3 = new Vector4(cv3.x, cv3.y, cv3.z, 1);
+                B4 = new Vector4(cv4.x, cv4.y, cv4.z, 1);
+            }
             B = new Matrix4x4(B1, B2, B3, B4); 
 
             // we work with the matrix shapes:

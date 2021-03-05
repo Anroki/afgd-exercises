@@ -474,12 +474,12 @@ MonoBehaviour:
   cp2: {fileID: 291112273}
   cp3: {fileID: 1720030881}
   cp4: {fileID: 2137886193}
-  curveType: 1
+  curveType: 0
   debugSegments: 20
   drawPath: 1
   pathColor: {r: 1, g: 0, b: 1, a: 1}
   drawTangents: 1
-  tangentScale: 0.2
+  tangentScale: 0.05
   tangentColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &1020513457
 MonoBehaviour:
